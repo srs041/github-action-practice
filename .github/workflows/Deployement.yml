@@ -33,18 +33,16 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: |
-            dist
-            package.json
+          path: dist
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
-        uses: actions/checkout@v3
-      - name: Install Node js
-        uses: actions/setup-node@v4
-      - name: Install Dependancies
-        run: npm ci
+      - name: Download Atrifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
+      - name: Output content
+        run: ls
       - name: run deploy
         run: echo "DEPLOY TASK RUNNING..."
