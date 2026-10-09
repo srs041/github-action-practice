@@ -13,6 +13,7 @@ jobs:
       - name: run lint
         run: echo "LINT TASK RUNNING..."
   build:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -24,6 +25,7 @@ jobs:
       - name: run build
         run: echo "BUILD TASK RUNNING..."
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
