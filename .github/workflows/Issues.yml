@@ -1,8 +1,8 @@
-name: Handle issues
+name: Output Information Issues
 on: issues
 jobs:
-  info-output:
+  info:
     runs-on: ubuntu-latest
     steps:
-      - name: Out put issues details
-        run: echo "${{getJSON(github.event)}}"
+      - name: Output github context
+        run: echo "${{toJSON(github.event)}}"
