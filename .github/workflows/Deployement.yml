@@ -1,0 +1,36 @@
+name: Lint Build Deployment Task
+on: push
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install Node js
+        uses: actions/setup-node@v4
+      - name: Install Dependancies
+        run: npm ci
+      - name: run lint
+        run: echo "LINT TASK RUNNING..."
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install Node js
+        uses: actions/setup-node@v4
+      - name: Install Dependancies
+        run: npm ci
+      - name: run build
+        run: echo "BUILD TASK RUNNING..."
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install Node js
+        uses: actions/setup-node@v4
+      - name: Install Dependancies
+        run: npm ci
+      - name: run deploy
+        run: echo "DEPLOY TASK RUNNING..."
