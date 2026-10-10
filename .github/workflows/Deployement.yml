@@ -19,11 +19,13 @@ jobs:
       - name: Install Node js
         uses: actions/setup-node@v4
       - name: Cache Dependencies
+        id: run-cache
         uses: actions/cache@v6
         with:
           path: ~/.npm
           key: deps-mode-modules-${{hashFiles('**/package-lock.json')}}
       - name: Install Dependancies
+        if: steps.run-cache.outcome.cache-hit!='true'
         run: npm ci
       - name: run lint
         run: npm run lint
@@ -47,11 +49,13 @@ jobs:
       - name: Install Node js
         uses: actions/setup-node@v4
       - name: Cache Dependencies
+        id: run-cache
         uses: actions/cache@v6
         with:
           path: ~/.npm
           key: deps-mode-modules-${{hashFiles('**/package-lock.json')}}
       - name: Install Dependancies
+        if: steps.run-cache.outcome.cache-hit!='true'
         run: npm ci
       - name: run build
         run: npm run build
