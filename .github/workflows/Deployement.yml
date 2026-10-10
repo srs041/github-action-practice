@@ -28,7 +28,14 @@ jobs:
       - name: run lint
         run: npm run lint
       - name: test
+        id: run-test
         run: npm run test
+      - name: Upload test report
+        uses: actions/upload-artifact@v3
+        if: steps.run-test.outcome == 'failure'
+        with:
+            name: test-report
+            path: test.json
   build:
     needs: test
     runs-on: ubuntu-latest
