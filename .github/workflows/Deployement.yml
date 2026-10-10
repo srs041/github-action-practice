@@ -5,6 +5,8 @@ on:
       - master
 env:
   GREETING: Hello
+  USER: Seetal
+  PASSWORD: 12345
 jobs:
   test:
     env:
@@ -69,4 +71,6 @@ jobs:
         run: | 
           echo "DEPLOY TASK RUNNING..."
           echo "Environment global value $GREETING"
-          echo "local environment value ${{env.NAME}}"
+          echo "Local environment value ${{env.NAME}}"
+          echo "Username ${{env.USER}}"
+          echo "password ${{env.PASSWORD}}"
