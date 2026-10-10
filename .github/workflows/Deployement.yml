@@ -3,8 +3,12 @@ on:
   push:
     branches:
       - master
+env:
+  GREETING: Hello
 jobs:
   test:
+    env:
+      NAME: Seetal Ranjan Sahoo
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -62,4 +66,7 @@ jobs:
       - name: Output file name
         run: echo "${{needs.build.outputs.script-file}}"
       - name: run deploy
-        run: echo "DEPLOY TASK RUNNING..."
+        run: | 
+          echo "DEPLOY TASK RUNNING..."
+          echo "Environment global value $GREETING"
+          echo "local environment value ${{env.NAME}}"
