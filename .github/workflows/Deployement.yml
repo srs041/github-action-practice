@@ -5,8 +5,8 @@ on:
       - master
 env:
   GREETING: Hello
-  USER: Seetal
-  PASSWORD: 12345
+  USER: ${{secrets.USER}}
+  PASSWORD: ${{secrets.PASSWORD}}
 jobs:
   test:
     env:
@@ -67,10 +67,10 @@ jobs:
         run: ls
       - name: Output file name
         run: echo "${{needs.build.outputs.script-file}}"
-      - name: run deploy
+      - name: deployment
         run: | 
           echo "DEPLOY TASK RUNNING..."
-          echo "Environment global value $GREETING"
-          echo "Local environment value ${{env.NAME}}"
+          echo "Global Environment value $GREETING"
+          echo "Local Environment value ${{env.NAME}}"
           echo "Username ${{env.USER}}"
           echo "password ${{env.PASSWORD}}"
