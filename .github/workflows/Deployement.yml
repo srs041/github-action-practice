@@ -9,6 +9,7 @@ env:
   PASSWORD: ${{secrets.PASSWORD}}
 jobs:
   test:
+    environment: dev
     env:
       NAME: Seetal Ranjan Sahoo
     runs-on: ubuntu-latest
