@@ -82,3 +82,10 @@ jobs:
           echo "Local Environment value ${{env.NAME}}"
           echo "Username ${{env.USER}}"
           echo "password ${{env.PASSWORD}}"
+  report:
+    needs: [test,build,deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Produce report
+        run: echo "Something went wrong"
