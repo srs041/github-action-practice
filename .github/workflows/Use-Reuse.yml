@@ -1,0 +1,12 @@
+name: Lint Build Deployment Task
+on:
+  push:
+    branches:
+      - master
+env:
+  GREETING: Hello
+  USER: ${{secrets.USER}}
+  PASSWORD: ${{secrets.PASSWORD}}
+jobs:
+  deploy:
+    uses: ./.github/workflows/Reusable.yml
