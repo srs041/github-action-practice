@@ -69,3 +69,5 @@ jobs:
           path: dist
   deploy:
     uses: ./.github/workflows/Reusable.yml
+    with:
+      artifact-name: dist-files
