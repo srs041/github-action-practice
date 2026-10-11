@@ -1,8 +1,23 @@
 name: Reusable workflow
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      atrifact-name:
+        description: The name of atrifact
+        required: false
+        default: dist
+        type: string
+
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get atrifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{inputs.atrifact-name}}
+      - name: List files
+        run: ls
       - name: Deploy application
         run: echo "Reusable Deploy application and uploading...."

@@ -8,5 +8,64 @@ env:
   USER: ${{secrets.USER}}
   PASSWORD: ${{secrets.PASSWORD}}
 jobs:
+  test:
+    environment: dev
+    env:
+      NAME: Seetal Ranjan Sahoo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install Node js
+        uses: actions/setup-node@v4
+      - name: Cache Dependencies
+        id: run-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.npm
+          key: deps-mode-modules-${{hashFiles('**/package-lock.json')}}
+      - name: Install Dependancies
+        if: steps.run-cache.outcome.cache-hit!='true'
+        run: npm ci
+      - name: run lint
+        run: npm run lint
+      - name: test
+        id: run-test
+        run: npm run test
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        if: failure() && steps.run-test.outcome == 'failure'
+        with:
+            name: test-report
+            path: test.json
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      script-file : ${{steps.publish.outputs.script-file1}}
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install Node js
+        uses: actions/setup-node@v4
+      - name: Cache Dependencies
+        id: run-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.npm
+          key: deps-mode-modules-${{hashFiles('**/package-lock.json')}}
+      - name: Install Dependancies
+        if: steps.run-cache.outcome.cache-hit!='true'
+        run: npm ci
+      - name: run build
+        run: npm run build
+      - name: Publish js filename
+        id: publish
+        run: find dist/assets/*.js -type f -execdir echo 'script-file1={}'>> $GITHUB_OUTPUT ';'
+      - name: Upload atrifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist
   deploy:
     uses: ./.github/workflows/Reusable.yml
