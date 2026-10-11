@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       artifact-name:
-        description: The name of atrifact
+        description: The name of artifact
         required: false
         default: dist
         type: string
